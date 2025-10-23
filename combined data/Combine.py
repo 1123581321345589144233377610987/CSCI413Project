@@ -1,8 +1,4 @@
 import pandas as pd
-import math
-import openpyxl
-#NOTE: Sleep Data handled separately:
-#sleeptime and sleep need to be joined
 
 folderNames = ["Activity Data", "Glucose Data", "Basal Data", "Bolus Data", "Nutrition Data", "Sleep Data", "SleepTime Data"]
 folderPrefixes=["Activity", "Glucose", "Basal", "Bolus", "Nutrition", "sleep", "sleeptime"]
