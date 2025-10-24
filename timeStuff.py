@@ -53,10 +53,9 @@ process('Bolus','bolus_dose','sum')
 process('Glucose','value','avg')
 process('Long', 'basal_dose', 'sum')
 process('Short', 'basal_dose', 'sum')
+process('Nutrition',['carbs_g','prot_g','fat_g'],'sum')
 """
 
-#meal_type,carbs_g,prot_g,fat_g
-#process('Nutrition',['carbs_g','prot_g','fat_g'],'sum')
 
 ####ACTIVITY#####
 #not sure what to do with
