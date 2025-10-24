@@ -73,7 +73,7 @@ process('Nutrition',['carbs_g','prot_g','fat_g'],'sum')
 #activity_type
 
 #sum
-#active_Kcal, step_count,distance_m,active_time_s
+#active_Kcal,step_count,distance_m,active_time_s
 
 #average
 #intensity, motion_intensity_mean
