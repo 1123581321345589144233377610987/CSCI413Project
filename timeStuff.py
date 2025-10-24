@@ -56,5 +56,25 @@ process('Short', 'basal_dose', 'sum')
 """
 
 #meal_type,carbs_g,prot_g,fat_g
+#process('Nutrition',['carbs_g','prot_g','fat_g'],'sum')
 
-process('Nutrition',['carbs_g','prot_g','fat_g'],'sum')
+
+#not sure what to do with
+#start_time_s,start_time_offset_s,met,
+
+#index
+#activity_ts,subjectID
+
+#categorical ffill
+#activity_type
+
+#sum
+#active_Kcal, step_count,distance_m,duration_s,active_time_s
+
+#average
+#intensity, motion_intensity_mean
+
+#max
+#motion_intensity_max
+
+process('Activity',cols,'')
