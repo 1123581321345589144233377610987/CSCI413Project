@@ -29,9 +29,12 @@ def outliers(data):
 short=outliers(short)
 long=outliers(long)
 
+"""
 scaler=StandardScaler()
 long['basal_dose'] =scaler.fit_transform(long[["basal_dose"]])
 short['basal_dose'] =scaler.fit_transform(short[["basal_dose"]])
+
+"""
 
 long.to_csv("cleaned data//Long Data Cleaned.csv")
 short.to_csv("cleaned data//Short Data Cleaned.csv")

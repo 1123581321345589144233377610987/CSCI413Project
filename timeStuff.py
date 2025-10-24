@@ -7,10 +7,12 @@ def process(file,target,function):
     def sum(group):
         g = group[target].resample('h').sum()
         g = g.asfreq('h')
+        g = g.to_frame(name=target)
         return g
     def avg(group):
         g = group[target].resample('h').mean()
         g = g.asfreq('h')
+        g = g.to_frame(name=target)
 
     data="".join([path,file,suffix])
     data=pd.read_csv(data)
@@ -35,16 +37,11 @@ def process(file,target,function):
     print(data.info())
 
     newfile="".join([path,file,"_Data_Aggregated.csv"])
-    data.to_csv(newfile)
+    data.reset_index(inplace=True)
+    data.to_csv(newfile, index=False)
 
 #process
 process('Bolus','bolus_dose','sum')
 process('Glucose','value','avg')
 process('Long', 'basal_dose', 'sum')
 process('Short', 'basal_dose', 'sum')
-
-#fix long
-long=pd.read_csv("".join([path,"Long_Data_Aggregated.csv"]))
-grouped=long.groupby(['subjectID','basal_ts'])['basal_dose'].mean()
-grouped.to_csv("grouped.csv")
-long['basal_dose']=grouped['basal_dose']
