@@ -60,7 +60,9 @@ process('Short', 'basal_dose', 'sum')
 
 
 #not sure what to do with
-#start_time_s,start_time_offset_s,met,
+#start_time_s - take min?, but what if they didn't exercize the whole hour? Maybe just drop?
+#start_time_offset_s - offset from WHAT??
+#met - what is this???
 
 #index
 #activity_ts,subjectID
