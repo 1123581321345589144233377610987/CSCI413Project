@@ -1,6 +1,6 @@
 import pandas as pd
 
-path="cleaned data//"
+path="cleaned data/"
 suffix=" Data Cleaned.csv"
 
 def process(file,target,function):
@@ -13,6 +13,7 @@ def process(file,target,function):
         g = group[target].resample('h').mean()
         g = g.asfreq('h')
         g = g.to_frame(name=target)
+        return g
 
     data="".join([path,file,suffix])
     data=pd.read_csv(data)
@@ -41,7 +42,9 @@ def process(file,target,function):
     data.to_csv(newfile, index=False)
 
 #process
+"""
 process('Bolus','bolus_dose','sum')
 process('Glucose','value','avg')
 process('Long', 'basal_dose', 'sum')
 process('Short', 'basal_dose', 'sum')
+"""
