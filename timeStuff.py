@@ -19,7 +19,7 @@ def process(file,target,function):
     data=pd.read_csv(data)
     try:
         ts="".join([file.lower(),'_ts'])
-        data[ts]=pd.to_datetime(data[ts], dayfirst=True)
+        data[ts]=pd.to_datetime(data[ts], dayfirst=True, format='mixed')
     except KeyError:
         ts=input(f"Please enter name of timestamp col for {file}: ")
         if(len(ts)<3 or ts[-3:]!='_ts'):
@@ -33,7 +33,7 @@ def process(file,target,function):
         case 'avg':
             data=data.groupby('subjectID').apply(avg)
         
-    data.fillna(0, inplace=True)
+    #data.fillna(0, inplace=True)
     print(data.head())
     print(data.info())
 
@@ -48,3 +48,7 @@ process('Glucose','value','avg')
 process('Long', 'basal_dose', 'sum')
 process('Short', 'basal_dose', 'sum')
 """
+
+#meal_type,carbs_g,prot_g,fat_g
+
+process('Nutrition','carbs_g','sum')

@@ -5,13 +5,16 @@ basal=basal.drop(columns=['Unnamed: 3','Unnamed: 4'])
 basal=pd.get_dummies(basal, columns=['insulin_kind'])
 short=basal[basal['insulin_kind_R']].copy()
 long=basal[basal['insulin_kind_L']].copy()
-
-def outliers(data):
+bolus=pd.read_csv("combined data//Bolus Data.csv")
+glucose=pd.read_csv("combined data//Glucose Data.csv")
+bolus=bolus.dropna()
+glucose=glucose.dropna()
+def outliers(data,cols):
     #dealing with outliers
     #outliers
     #create an empty mask in which to track outliers
     outlier_mask = pd.Series([False] * len(data), index=data.index)
-    columns_to_check = data[['basal_dose']]
+    columns_to_check = data[[cols]]
     #iterate through each column and add outliers to the outlier mask
     for col in columns_to_check:
         Q1 = data[col].quantile(0.25)
@@ -26,8 +29,10 @@ def outliers(data):
     #drop all outliers
     return data[~outlier_mask]
 
-short=outliers(short)
-long=outliers(long)
+short=outliers(short, 'basal_dose')
+long=outliers(long,'basal_dose')
+glucose=outliers(glucose,'value')
+bolus=outliers(bolus,'bolus_dose')
 
 """
 scaler=StandardScaler()
@@ -38,3 +43,5 @@ short['basal_dose'] =scaler.fit_transform(short[["basal_dose"]])
 
 long.to_csv("cleaned data//Long Data Cleaned.csv")
 short.to_csv("cleaned data//Short Data Cleaned.csv")
+bolus.to_csv("cleaned data//Bolus Data Cleaned.csv")
+glucose.to_csv("cleaned data//Glucose Data Cleaned.csv")
