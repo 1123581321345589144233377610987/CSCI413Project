@@ -63,6 +63,9 @@ process('Nutrition',['carbs_g','prot_g','fat_g'],'sum')
 #start_time_offset_s - offset from WHAT??
 #met - what is this???
 
+#duration_s - need to look into, could be max or sum or maybe even average depending
+#on the specifics of what it actually means
+
 #index
 #activity_ts,subjectID
 
@@ -70,7 +73,7 @@ process('Nutrition',['carbs_g','prot_g','fat_g'],'sum')
 #activity_type
 
 #sum
-#active_Kcal, step_count,distance_m,duration_s,active_time_s
+#active_Kcal, step_count,distance_m,active_time_s
 
 #average
 #intensity, motion_intensity_mean
