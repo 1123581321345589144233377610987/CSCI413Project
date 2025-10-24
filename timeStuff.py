@@ -58,7 +58,7 @@ process('Short', 'basal_dose', 'sum')
 #meal_type,carbs_g,prot_g,fat_g
 #process('Nutrition',['carbs_g','prot_g','fat_g'],'sum')
 
-
+####ACTIVITY#####
 #not sure what to do with
 #start_time_s - take min?, but what if they didn't exercize the whole hour? Maybe just drop?
 #start_time_offset_s - offset from WHAT??
