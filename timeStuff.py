@@ -39,7 +39,7 @@ def process(file,target,function):
         case 'avg':
             data=data.groupby('subjectID').apply(avg)
         
-    #data.fillna(0, inplace=True)
+    data.fillna(0, inplace=True)
     print(data.head())
     print(data.info())
 
