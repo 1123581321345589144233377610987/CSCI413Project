@@ -99,3 +99,5 @@ process('Nutrition',['carbs_g','prot_g','fat_g'],'sum')
 
 #categorical ffill
 #
+
+#idea: could create new cols like max and min heart rate (would still be over the 5 minute period though)
