@@ -79,4 +79,24 @@ process('Short', 'basal_dose', 'sum')
 #max
 #motion_intensity_max
 
-process('Activity',cols,'')
+#process('Activity',cols,'')
+
+
+
+
+
+###SLEEEEEP#######
+
+#sleep_level - need to look into to see how it works
+#possibly average or ffill if it's more like sleep stages?
+
+#index
+#sleep_ts,subjectID
+
+#sum
+
+#average
+#heart_rate,current_activity_type_intensity,stress_level_value,resting_heart_rate
+
+#categorical ffill
+#
