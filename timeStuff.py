@@ -86,7 +86,7 @@ process('Nutrition',['carbs_g','prot_g','fat_g'],'sum', 1)
 
 ActSum=process('Activity', ['active_Kcal','step_count','distance_m','active_time_s'], 'sum',0)
 ActAvg=process('Activity', ['motion_intensity_mean'], 'avg',0)
-merged = pd.merge(ActSum, ActAvg, on=['subjectID', 'activity_ts'], how='left')
+merged = pd.merge(ActSum, ActAvg, on=['subjectID', 'activity_ts'], how='outer')
 merged.to_csv("".join([path,"Activity_Data_Aggregated.csv"]))
 
 ###SLEEEEEP#######
