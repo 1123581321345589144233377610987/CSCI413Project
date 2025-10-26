@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 
 path="cleaned data/"
 suffix=" Data Cleaned.csv"
@@ -36,6 +37,14 @@ def process(file,target,function, mode):
             return g
         except AttributeError:
             return g
+    def mode(group):
+        g = group[target].resample('h').apply(lambda x: x.mode().iloc[0] if not x.mode().empty else np.nan)
+        g = g.asfreq('h')
+        try:
+            g = g.to_frame(name=target)
+            return g
+        except AttributeError:
+            return g
         
     data="".join([path,file,suffix])
     data=pd.read_csv(data)
@@ -58,6 +67,8 @@ def process(file,target,function, mode):
             data=data.groupby('subjectID').apply(max)
         case 'min':
             data=data.groupby('subjectID').apply(min)
+        case 'mode':
+            data=data.groupby('subjectID').apply(mode)
         
     data.fillna(0, inplace=True)
     print(data.head())
@@ -112,19 +123,21 @@ merged.to_csv("".join([path,"Activity_Data_Aggregated.csv"]))
 merged.head()
 merged.info()
 
-'''
 sleep=pd.read_csv("".join([path, 'Sleep Data Cleaned.csv']))
-print(sleep.head())
-sleep.info()
-process('Sleep',['heart_rate','current_activity_type_intensity','stress_level_value','resting_heart_rate'],'avg',1)
-'''
-###SLEEEEEP#######
+SleepAvg=process('Sleep',['heart_rate','current_activity_type_intensity','stress_level_value','resting_heart_rate'],'avg',0)
+SleepMode=process('Sleep',['sleep_level'],'mode',0)
+merged=pd.merge(SleepAvg, SleepMode, on=['subjectID', 'sleep_ts'], how='outer')
+merged.to_csv("".join([path,"Sleep_Data_Aggregated.csv"]))
+merged.head()
+merged.info()
 
-#sleep_level - need to look into to see how it works
-#possibly average or ffill if it's more like sleep stages?
+###SLEEEEEP#######
 
 #index
 #sleep_ts,subjectID
+
+#mode
+#sleep_level - boolean value
 
 #sum
 
