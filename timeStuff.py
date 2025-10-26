@@ -3,7 +3,7 @@ import pandas as pd
 path="cleaned data/"
 suffix=" Data Cleaned.csv"
 
-def process(file,target,function):
+def process(file,target,function, mode):
     def sum(group):
         g = group[target].resample('h').sum()
         g = g.asfreq('h')
@@ -42,18 +42,20 @@ def process(file,target,function):
     data.fillna(0, inplace=True)
     print(data.head())
     print(data.info())
-
-    newfile="".join([path,file,"_Data_Aggregated.csv"])
-    data.reset_index(inplace=True)
-    data.to_csv(newfile, index=False)
+    if mode==1:
+        newfile="".join([path,file,"_Data_Aggregated.csv"])
+        data.reset_index(inplace=True)
+        data.to_csv(newfile, index=False)
+    else:
+        return data
 
 #process
 """
-process('Bolus','bolus_dose','sum')
-process('Glucose','value','avg')
-process('Long', 'basal_dose', 'sum')
-process('Short', 'basal_dose', 'sum')
-process('Nutrition',['carbs_g','prot_g','fat_g'],'sum')
+process('Bolus','bolus_dose','sum', 1)
+process('Glucose','value','avg', 1)
+process('Long', 'basal_dose', 'sum', 1)
+process('Short', 'basal_dose', 'sum', 1)
+process('Nutrition',['carbs_g','prot_g','fat_g'],'sum', 1)
 """
 
 
@@ -77,15 +79,15 @@ process('Nutrition',['carbs_g','prot_g','fat_g'],'sum')
 
 #average
 #intensity, motion_intensity_mean
+#NO INTENSITY - that is categorical and a string
 
 #max
 #motion_intensity_max
 
-#process('Activity',cols,'')
-
-
-
-
+ActSum=process('Activity', ['active_Kcal','step_count','distance_m','active_time_s'], 'sum',0)
+ActAvg=process('Activity', ['motion_intensity_mean'], 'avg',0)
+merged = pd.merge(ActSum, ActAvg, on=['subjectID', 'activity_ts'], how='left')
+merged.to_csv("".join([path,"Activity_Data_Aggregated.csv"]))
 
 ###SLEEEEEP#######
 
