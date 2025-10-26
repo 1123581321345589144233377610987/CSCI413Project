@@ -103,7 +103,7 @@ process('Nutrition',['carbs_g','prot_g','fat_g'],'sum', 1)
 
 #max
 #motion_intensity_max
-
+"""
 ActSum=process('Activity', ['active_Kcal','step_count','distance_m','active_time_s'], 'sum',0)
 ActAvg=process('Activity', ['motion_intensity_mean'], 'avg',0)
 ActMax=process('Activity', ['motion_intensity_max'], 'avg',0)
@@ -112,6 +112,12 @@ merged = pd.merge(merged, ActMax, on=['subjectID', 'activity_ts'], how='outer')
 merged.to_csv("".join([path,"Activity_Data_Aggregated.csv"]))
 merged.head()
 merged.info()
+"""
+
+sleep=pd.read_csv("".join([path, 'Sleep Data Cleaned.csv']))
+print(sleep.head())
+sleep.info()
+process('Sleep',['heart_rate','current_activity_type_intensity','stress_level_value','resting_heart_rate'],'avg',1)
 
 ###SLEEEEEP#######
 
