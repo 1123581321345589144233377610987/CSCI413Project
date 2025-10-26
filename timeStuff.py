@@ -20,6 +20,22 @@ def process(file,target,function, mode):
             return g
         except AttributeError:
             return g
+    def max(group):
+        g = group[target].resample('h').max()
+        g = g.asfreq('h')
+        try:
+            g = g.to_frame(name=target)
+            return g
+        except AttributeError:
+            return g
+    def min(group):
+        g = group[target].resample('h').min()
+        g = g.asfreq('h')
+        try:
+            g = g.to_frame(name=target)
+            return g
+        except AttributeError:
+            return g
         
     data="".join([path,file,suffix])
     data=pd.read_csv(data)
@@ -38,6 +54,10 @@ def process(file,target,function, mode):
             data=data.groupby('subjectID').apply(sum)
         case 'avg':
             data=data.groupby('subjectID').apply(avg)
+        case 'max':
+            data=data.groupby('subjectID').apply(max)
+        case 'min':
+            data=data.groupby('subjectID').apply(min)
         
     data.fillna(0, inplace=True)
     print(data.head())
@@ -72,7 +92,7 @@ process('Nutrition',['carbs_g','prot_g','fat_g'],'sum', 1)
 #activity_ts,subjectID
 
 #categorical ffill
-#activity_type
+#activity_type, intensity?
 
 #sum
 #active_Kcal,step_count,distance_m,active_time_s
@@ -86,8 +106,12 @@ process('Nutrition',['carbs_g','prot_g','fat_g'],'sum', 1)
 
 ActSum=process('Activity', ['active_Kcal','step_count','distance_m','active_time_s'], 'sum',0)
 ActAvg=process('Activity', ['motion_intensity_mean'], 'avg',0)
+ActMax=process('Activity', ['motion_intensity_max'], 'avg',0)
 merged = pd.merge(ActSum, ActAvg, on=['subjectID', 'activity_ts'], how='outer')
+merged = pd.merge(merged, ActMax, on=['subjectID', 'activity_ts'], how='outer')
 merged.to_csv("".join([path,"Activity_Data_Aggregated.csv"]))
+merged.head()
+merged.info()
 
 ###SLEEEEEP#######
 
