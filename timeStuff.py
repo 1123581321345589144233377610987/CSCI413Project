@@ -80,10 +80,10 @@ process('Nutrition',['carbs_g','prot_g','fat_g'],'sum', 1)
 
 
 ####ACTIVITY#####
-#not sure what to do with
+#dropping
 #start_time_s - take min?, but what if they didn't exercize the whole hour? Maybe just drop?
 #start_time_offset_s - offset from WHAT??
-#met - what is this???
+#intensity -  don't need - we have met
 
 #duration_s - need to look into, could be max or sum or maybe even average depending
 #on the specifics of what it actually means
@@ -98,14 +98,13 @@ process('Nutrition',['carbs_g','prot_g','fat_g'],'sum', 1)
 #active_Kcal,step_count,distance_m,active_time_s
 
 #average
-#intensity, motion_intensity_mean
-#NO INTENSITY - that is categorical and a string
+#motion_intensity_mean, met
 
 #max
 #motion_intensity_max
 
 ActSum=process('Activity', ['active_Kcal','step_count','distance_m','active_time_s'], 'sum',0)
-ActAvg=process('Activity', ['motion_intensity_mean'], 'avg',0)
+ActAvg=process('Activity', ['motion_intensity_mean','met'], 'avg',0)
 ActMax=process('Activity', ['motion_intensity_max'], 'max',0)
 merged = pd.merge(ActSum, ActAvg, on=['subjectID', 'activity_ts'], how='outer')
 merged = pd.merge(merged, ActMax, on=['subjectID', 'activity_ts'], how='outer')
