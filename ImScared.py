@@ -6,10 +6,13 @@ prefix="cleaned data/"
 suffix="_Data_Aggregated.csv"
 #first renaming the timestamp col to be ts for all of them so everything is just a little easier
 #also dropping all columns with "unnamed"
-'''
+
 i=0
 while i < len(files):
-    file=np.read_csv("".join([prefix,files[i],suffix]), index_col=['subjectID','ts'])
+    try:
+        file=np.read_csv("".join([prefix,files[i],suffix]), index_col=['subjectID',ts[i]])
+    except ValueError:
+        file=np.read_csv("".join([prefix,files[i],suffix]), index_col=['subjectID','ts'])
     try:
         file['ts']=file[ts[i]]
         file=file.drop(ts[i], axis=1)
@@ -26,7 +29,7 @@ while i < len(files):
         print("no ''")
     file.to_csv("".join([prefix,files[i],suffix]))
     i+=1
-'''
+
 
 file="".join([prefix,files[0],suffix])
 file=np.read_csv(file, index_col=['subjectID','ts'])
