@@ -35,7 +35,7 @@ file="".join([prefix,files[0],suffix])
 file=np.read_csv(file, index_col=['subjectID','ts'])
 i=1
 
-while i<len(files)-1:
+while i<len(files):
     print("".join([prefix,files[i],suffix]))
     print(np.read_csv("".join([prefix,files[i],suffix])).index.name)
     print(np.read_csv("".join([prefix,files[i],suffix])).columns.tolist())
