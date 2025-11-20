@@ -88,6 +88,22 @@ process('Long', 'basal_dose', 'sum', 1)
 process('Short', 'basal_dose', 'sum', 1)
 process('Nutrition',['carbs_g','prot_g','fat_g'],'sum', 1)
 """
+####BASAL####
+#index
+#basal_ts, subjectID
+
+#sum
+#basal_dose
+
+#categorical fill with mode
+#insulin_kind_L, insulin_kind_R
+
+BasSum=process('Basal', ['basal_dose'], 'sum', 0)
+BasMode=process('Basal',['insulin_kind_L', 'insulin_kind_R'], 'mode',0)
+merged = pd.merge(BasSum, BasMode, on=['subjectID', 'basal_ts'], how='outer')
+merged.to_csv("".join([path,"Basal_Data_Aggregated.csv"]))
+merged.head()
+merged.info()
 
 
 ####ACTIVITY#####

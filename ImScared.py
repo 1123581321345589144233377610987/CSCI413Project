@@ -9,18 +9,25 @@ suffix="_Data_Aggregated.csv"
 
 i=0
 while i < len(files):
+    print("".join([prefix,files[i],suffix]))
     try:
-        file=np.read_csv("".join([prefix,files[i],suffix]), index_col=['subjectID',ts[i]])
-    except ValueError:
         file=np.read_csv("".join([prefix,files[i],suffix]), index_col=['subjectID','ts'])
+        print(1)
+    except ValueError:
+        file=np.read_csv("".join([prefix,files[i],suffix]))
+        print(2)
     try:
         file['ts']=file[ts[i]]
         file=file.drop(ts[i], axis=1)
+        print(3)
     except KeyError:
         print("already done!")
+        print(4)
+    
     file = file.loc[:, ~file.columns.str.contains('unnamed', case=False)]
     try: 
         file=file.drop('Unnamed: 0', axis=1)
+        print(5)
     except KeyError:
         print("no Unnamed: 0")
     try:
@@ -41,4 +48,5 @@ while i<len(files):
     print(np.read_csv("".join([prefix,files[i],suffix])).columns.tolist())
     file=np.merge(file, np.read_csv("".join([prefix,files[i],suffix])), on=['subjectID','ts'], how='outer')
     i+=1
+file = file.loc[:, ~file.columns.str.contains('unnamed', case=False)]
 file.to_csv("THE.csv")
