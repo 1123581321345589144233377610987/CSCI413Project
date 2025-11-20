@@ -12,22 +12,17 @@ while i < len(files):
     print("".join([prefix,files[i],suffix]))
     try:
         file=np.read_csv("".join([prefix,files[i],suffix]), index_col=['subjectID','ts'])
-        print(1)
     except ValueError:
         file=np.read_csv("".join([prefix,files[i],suffix]))
-        print(2)
     try:
         file['ts']=file[ts[i]]
         file=file.drop(ts[i], axis=1)
-        print(3)
     except KeyError:
         print("already done!")
-        print(4)
     
     file = file.loc[:, ~file.columns.str.contains('unnamed', case=False)]
     try: 
         file=file.drop('Unnamed: 0', axis=1)
-        print(5)
     except KeyError:
         print("no Unnamed: 0")
     try:
@@ -49,4 +44,6 @@ while i<len(files):
     file=np.merge(file, np.read_csv("".join([prefix,files[i],suffix])), on=['subjectID','ts'], how='outer')
     i+=1
 file = file.loc[:, ~file.columns.str.contains('unnamed', case=False)]
+file['ts']=np.to_datetime(file["ts"])
+file = file[file["ts"] <= dt.datetime(2026,1,1)]
 file.to_csv("THE.csv")
