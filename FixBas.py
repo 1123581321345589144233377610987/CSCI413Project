@@ -31,8 +31,8 @@ def outliers(data,cols):
 
 short=outliers(short, 'basal_dose')
 long=outliers(long,'basal_dose')
-glucose=outliers(glucose,'value')
-bolus=outliers(bolus,'bolus_dose')
+#glucose=outliers(glucose,'value')
+#bolus=outliers(bolus,'bolus_dose')
 
 """
 scaler=StandardScaler()
@@ -43,5 +43,5 @@ short['basal_dose'] =scaler.fit_transform(short[["basal_dose"]])
 
 long.to_csv("cleaned data//Long Data Cleaned.csv")
 short.to_csv("cleaned data//Short Data Cleaned.csv")
-bolus.to_csv("cleaned data//Bolus Data Cleaned.csv")
-glucose.to_csv("cleaned data//Glucose Data Cleaned.csv")
+#bolus.to_csv("cleaned data//Bolus Data Cleaned.csv")
+#glucose.to_csv("cleaned data//Glucose Data Cleaned.csv")
