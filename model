@@ -1,3 +1,5 @@
+#Ensemble RNNS
+
 import tensorflow as tf
 from tensorflow import layers, models, Sequential
 import numpy as np
@@ -5,6 +7,25 @@ import pandas as pd
 prefix="scaledData/"
 data=["2301.csv", "2304.csv", "2308.csv", "2307.csv", "2309.csv"]
 name=["Emily",""]
-for i in data:
+for i in data: 
     person=pd.read_csv(i)
-    model=
+    Sequential([
+    # SimpleRNN layer:
+    # units: Number of hidden units in the RNN cell.
+    # input_shape: (timesteps, features). In this case, 10 timesteps, 1 feature per timestep.
+    # activation: 'relu' or 'tanh' are common for hidden layers.
+    SimpleRNN(units=32, input_shape=(24, ), activation='relu'),
+    
+    # Dense layer for continuous output:
+    # units: 1 for a single continuous output.
+    # activation: 'linear' for continuous output (no activation function applied).
+    Dense(units=1, activation='linear') 
+])
+    grid={
+    'n_estimators': [100,250,500,1000],
+    'max_depth': [7,10,15,20],
+    'min_samples_split': [2,3,4,5],
+    'max_features': ['sqrt', 'log2']
+    }
+    model=RandomForestClassifier(random_state=42)
+    grid_search=GridSearchCV(estimator=model, param_grid=grid, cv=5, n_jobs=-1, scoring='accuracy')
