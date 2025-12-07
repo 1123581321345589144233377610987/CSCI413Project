@@ -1,9 +1,13 @@
 #Ensemble RNNS
 
 import tensorflow as tf
-from tensorflow import layers, models, Sequential
+from tensorflow import SimpleRNN, Sequential, Dense
 import numpy as np
 import pandas as pd
+from sklearn.model_selection import GridSearchCV
+from scikeras.wrappers import KerasRegressor
+
+numcols=13
 prefix="scaledData/"
 data=["2301.csv", "2304.csv", "2308.csv", "2307.csv", "2309.csv"]
 name=["Emily",""]
@@ -14,7 +18,7 @@ for i in data:
     # units: Number of hidden units in the RNN cell.
     # input_shape: (timesteps, features). In this case, 10 timesteps, 1 feature per timestep.
     # activation: 'relu' or 'tanh' are common for hidden layers.
-    SimpleRNN(units=32, input_shape=(24, ), activation='relu'),
+    SimpleRNN(units=32, input_shape=(24,13), activation='relu'),
     
     # Dense layer for continuous output:
     # units: 1 for a single continuous output.
