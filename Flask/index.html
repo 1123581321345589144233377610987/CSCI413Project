@@ -1,0 +1,43 @@
+<html>
+    <body>
+        <h3>Blood Glucose Prediction</h3>
+    </body>
+    <div>
+    <!-- 
+    This is a form action. It uses a "POST" method to send the data to the server.
+    The "action" is the flask route that it will be sent to.
+    THe "method" is the HTTP method that will be used to send the data to the server.
+    -->
+    <form action="/result" method="POST"> 
+    <label for="carbs_g">Carbs (grams)</label>
+    <input type="text" id="carbs_g" name="carbs_g">btw:[0-9999]
+    <br>
+    <label for="fat_g">Fat (grams)</label>btw:[0-9999]
+    <input type="text" id="fat_g" name="fat_g">
+    <br>
+    <label for="protein_g">Protein (grams)</label>btw:[0-9999]
+    <input type="text" id="protein_g" name="protein_g">
+    <br>
+    <label for="intensity">Activity Intensity</label>
+    <select id="intensity" name="intensity">
+      <option value="0">Sedentary</option>
+      <option value="1">Active</option>
+      <option value="2">Highly Active</option>
+    </select>
+    <br>
+    <label for="is_asleep">Are you asleep?</label>
+    <select id="is_asleep" name="is_asleep">
+      <option value="0">Awake</option>
+      <option value="1">Asleep</option>
+    </select>
+    <br>
+    <label for="time_of_day">Time of Day</label>
+    <select id="intensity" name="intensity">
+      <option value="0">Morning</option>
+      <option value="1">Afternoon</option>
+      <option value="2">Evening</option>
+      <option value="3">Night</option>
+    </select>
+    </div>
+
+</html>
