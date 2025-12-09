@@ -88,7 +88,7 @@ def main():
     df = load_data("scaledData/.csv")
     print(f"Data after loading: {df.head()}")
    # df = preprocess_data(df)
-    model, X_test, y_test, score, confusion_matrix, classification_report = train_model(df)
+    model, X_test, y_test, mae, mse, r2 = train_model(df)
     print(f"Mean Absolute Error: {mae}")
     print(f"Mean Squared Error: {mse}")
     print(f"R2 Score: {r2}")
