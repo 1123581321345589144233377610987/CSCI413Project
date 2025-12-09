@@ -128,7 +128,7 @@ for subject_id in subject_ids:
 
     # ---------- FEATURE SCALING AND ENCODING ----------
     # establish which columns are numeric vs categorical
-    numeric_cols = ["value", "carbs_g", "prot_g", "fat_g", "bolus_dose", "basal_dose", "intensity"]
+    numeric_cols = ["carbs_g", "prot_g", "fat_g", "bolus_dose", "basal_dose", "intensity"]
     categorical_cols = ["time_of_day"]
     # leaving is_asleep because it's already a Boolean
 
