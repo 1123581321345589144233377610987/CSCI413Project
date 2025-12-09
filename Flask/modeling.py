@@ -8,6 +8,7 @@ import numpy as np
 from sklearn.model_selection import GridSearchCV, learning_curve
 import seaborn as sns
 import pickle
+import os
 
 
 def load_data(path):
@@ -39,7 +40,7 @@ def train_model(df):
 
     parameters = {
     "max_depth": [None, 3, 5, 8, 10, 15, 20],
-    "min_samples_split": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20],
+    "min_samples_split": [2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20],
     "max_features": ['sqrt', 'log2', None]
 }
 
@@ -58,7 +59,7 @@ def train_model(df):
 def test_model(model, X_test, y_test):
     # Get the model score
     y_pred = model.predict(X_test)
-    mae = model.mean_absolute_error(y_test, y_pred)
+    mae = mean_absolute_error(y_test, y_pred)
     mse = mean_squared_error(y_test, y_pred)
     r2 = r2_score(y_test, y_pred)
 
@@ -74,6 +75,7 @@ def predict(model, X_test):
 def save_model(model, path):
 
     # Save Model Using Pickle
+    os.makedirs(os.path.dirname(path), exist_ok=True)  # create 'models' folder if it doesn't exist
     with open(path, "wb") as model_file:
         pickle.dump(model, model_file)
 
@@ -85,7 +87,7 @@ def load_model(path):
     return model
 
 def main():
-    df = load_data("scaledData/.csv")
+    df = load_data("scaledData/2301.csv")
     print(f"Data after loading: {df.head()}")
    # df = preprocess_data(df)
     model, X_test, y_test, mae, mse, r2 = train_model(df)
